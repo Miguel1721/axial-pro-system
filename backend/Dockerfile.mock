@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 3002
 
 # Iniciar el servidor mock
-CMD ["node", "mock-server.js"]
+CMD ["node", "mock-server-fixed.js"]
