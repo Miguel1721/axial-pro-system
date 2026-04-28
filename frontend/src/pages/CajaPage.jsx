@@ -29,7 +29,10 @@ const CajaPage = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const API_URL = import.meta.env.VITE_API_URL || 'https://api.centro-salud.agentesia.cloud';
+      const rawApiUrl = import.meta.env.VITE_API_URL;
+      const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
+                      ? rawApiUrl
+                      : 'https://api.centro-salud.agentesia.cloud';
       const response = await fetch(`${API_URL}/api/caja/cierre-caja`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -54,7 +57,10 @@ const CajaPage = () => {
   const fetchBonos = async () => {
     try {
       const token = localStorage.getItem('token');
-      const API_URL = import.meta.env.VITE_API_URL || 'https://api.centro-salud.agentesia.cloud';
+      const rawApiUrl = import.meta.env.VITE_API_URL;
+      const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
+                      ? rawApiUrl
+                      : 'https://api.centro-salud.agentesia.cloud';
       const response = await fetch(`${API_URL}/api/caja/bonos`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -71,7 +77,10 @@ const CajaPage = () => {
   const fetchPacientes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const API_URL = import.meta.env.VITE_API_URL || 'https://api.centro-salud.agentesia.cloud';
+      const rawApiUrl = import.meta.env.VITE_API_URL;
+      const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
+                      ? rawApiUrl
+                      : 'https://api.centro-salud.agentesia.cloud';
       const response = await fetch(`${API_URL}/api/pacientes`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -89,7 +98,10 @@ const CajaPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const API_URL = import.meta.env.VITE_API_URL || 'https://api.centro-salud.agentesia.cloud';
+      const rawApiUrl = import.meta.env.VITE_API_URL;
+      const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
+                      ? rawApiUrl
+                      : 'https://api.centro-salud.agentesia.cloud';
       const response = await fetch(`${API_URL}/api/caja/bonos`, {
         method: 'POST',
         headers: {
@@ -120,9 +132,9 @@ const CajaPage = () => {
   };
 
   const bonosEjemplo = [
-    { id: 1, paciente: 'Juan Pérez', paquete: 'Paquete 5 sesiones', sesionesRestantes: 2, valor: 900000 },
-    { id: 2, paciente: 'María García', paquete: 'Paquete 10 sesiones', sesionesRestantes: 5, valor: 1800000 },
-    { id: 3, paciente: 'Carlos López', paquete: 'Paquete 3 sesiones', sesionesRestantes: 1, valor: 540000 }
+    { id: 1, paciente_nombre: 'Juan Pérez', nombre_paquete: 'Paquete 5 sesiones', sesiones_totales: 2, sesiones_usadas: 0, precio_pagado: 900000 },
+    { id: 2, paciente_nombre: 'María García', nombre_paquete: 'Paquete 10 sesiones', sesiones_totales: 5, sesiones_usadas: 0, precio_pagado: 1800000 },
+    { id: 3, paciente_nombre: 'Carlos López', nombre_paquete: 'Paquete 3 sesiones', sesiones_totales: 1, sesiones_usadas: 0, precio_pagado: 540000 }
   ];
 
   return (
@@ -153,7 +165,7 @@ const CajaPage = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Abonos</p>
-              <p className="text-2xl font-semibold text-gray-900">${cierreCaja.totalAbonos.toLocaleString()}</p>
+              <p className="text-2xl font-semibold text-gray-900">${cierreCaja.totalAbonos?.toLocaleString() || '0'}</p>
             </div>
           </div>
         </div>
@@ -177,7 +189,7 @@ const CajaPage = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Abonos Hoy</p>
-              <p className="text-2xl font-semibold text-gray-900">${cierreCaja.abonosHoy.toLocaleString()}</p>
+              <p className="text-2xl font-semibold text-gray-900">${cierreCaja.abonosHoy?.toLocaleString() || '0'}</p>
             </div>
           </div>
         </div>
@@ -208,10 +220,10 @@ const CajaPage = () => {
                     <div>
                       <p className="font-medium text-gray-900">{bono.paciente_nombre}</p>
                       <p className="text-sm text-gray-600">{bono.nombre_paquete}</p>
-                      <p className="text-xs text-gray-500">${bono.precio_pagado.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">${bono.precio_pagado?.toLocaleString() || '0'}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-gray-900">{bono.sesiones_totales - bono.sesiones_usadas} sesiones restantes</p>
+                      <p className="text-sm font-medium text-gray-900">{bono.sesiones_totales - (bono.sesiones_usadas || 0)} sesiones restantes</p>
                       <span className={`mt-1 inline-block px-3 py-1 text-xs rounded-full ${
                         bono.activo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                       }`}>
