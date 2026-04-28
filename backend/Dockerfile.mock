@@ -1,0 +1,14 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+
+COPY . .
+
+# Exponer puerto 3002 para el servidor mock
+EXPOSE 3002
+
+# Iniciar el servidor mock
+CMD ["node", "mock-server.js"]

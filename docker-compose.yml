@@ -1,4 +1,14 @@
 services:
+  # 🐘 SERVIDOR MOCK CON DATOS DE EJEMPLO
+  mock-server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.mock
+    ports:
+      - "3002:3002"  # Puerto separado para mock server
+    networks:
+      - dokploy-network
+
   # 🐘 SERVIDOR POSTGRESQL (PROTEGIDO, sin puerto expuesto)
   db:
     image: postgres:15-alpine
@@ -36,12 +46,13 @@ services:
         - "traefik.http.routers.pgadmin.entrypoints=websecure"
         - "traefik.http.routers.pgadmin.tls.certresolver=letsencrypt"
 
-  # 🔗 API BACKEND NODE.JS
+  # 🔗 API BACKEND NODE.JS (Mock mode)
   backend:
     image: axial-pro-system-backend
     environment:
       - NODE_ENV=production
-      - DB_HOST=db
+      - MOCK_MODE=true
+      - DB_HOST=mock-db
       - DB_PORT=5432
       - DB_NAME=axial_clinic_db
       - DB_USER=axial_admin
@@ -52,7 +63,7 @@ services:
     ports:
       - "18001:3000"  # Puerto temporal para debug
     depends_on:
-      - db
+      - mock-server
     networks:
       - dokploy-network
     labels:
@@ -90,3 +101,5 @@ networks:
 volumes:
   pgdata:
     name: axial_pgdata
+  mock-data:
+    name: axial_mock_data

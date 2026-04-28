@@ -27,4 +27,4 @@ http:
     centro-salud-backend:
       loadBalancer:
         servers:
-          - url: "http://axial-pro-system-backend-1:3000"
+          - url: "http://axial-pro-system-mock-server-1:3002"

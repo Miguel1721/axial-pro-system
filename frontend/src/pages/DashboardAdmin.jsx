@@ -34,16 +34,16 @@ const DashboardAdmin = () => {
       const today = new Date().toISOString().split('T')[0];
       const citasResponse = await fetch(`${API_URL}/api/citas`, { headers });
       const citasData = await citasResponse.json();
-      const citasHoy = citasData.filter(cita =>
+      const citasHoy = Array.isArray(citasData) ? citasData.filter(cita =>
         cita.fecha_hora && cita.fecha_hora.startsWith(today)
-      ).length;
+      ).length : 0;
 
       // Fetch sesiones de hoy
       const sesionesResponse = await fetch(`${API_URL}/api/sesiones`, { headers });
       const sesionesData = await sesionesResponse.json();
-      const sesionesHoy = sesionesData.filter(sesion =>
+      const sesionesHoy = Array.isArray(sesionesData) ? sesionesData.filter(sesion =>
         sesion.hora_inicio && sesion.hora_inicio.startsWith(today)
-      ).length;
+      ).length : 0;
 
       // Fetch ingresos de hoy
       const cajaResponse = await fetch(`${API_URL}/api/caja/cierre-caja`, { headers });
