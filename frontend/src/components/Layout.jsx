@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Navigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import RoleSelector from './RoleSelector';
 import {
   LayoutDashboard,
   Calendar,
@@ -42,6 +43,11 @@ const Layout = () => {
     caja: [
       { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
       { path: '/caja', icon: CreditCard, label: 'Caja' }
+    ],
+    paciente: [
+      { path: '/mi-portal/citas', icon: Calendar, label: 'Mis Citas' },
+      { path: '/mi-portal/historial', icon: Stethoscope, label: 'Mi Historial' },
+      { path: '/mi-portal/bonos', icon: CreditCard, label: 'Mis Bonos' }
     ]
   };
 
@@ -53,8 +59,13 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Demo banner */}
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 px-4 text-center">
+        <p className="text-sm font-medium">🎭 Modo Demo - Cambia roles libremente para explorar todas las funcionalidades</p>
+      </div>
+
       {/* Mobile menu button */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
+      <div className="lg:hidden fixed top-16 left-4 z-50">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="p-2 bg-white rounded-lg shadow-md"
@@ -64,13 +75,13 @@ const Layout = () => {
       </div>
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+      <div className={`fixed top-16 bottom-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-center h-16 bg-blue-600 text-white">
-            <h1 className="text-xl font-bold">Axial Pro Clinic</h1>
+          <div className="flex items-center justify-center h-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+            <h1 className="text-xl font-bold">🎭 Axial Pro Clinic Demo</h1>
           </div>
 
           {/* User info */}
@@ -121,8 +132,12 @@ const Layout = () => {
         <header className="bg-white shadow-sm">
           <div className="flex items-center justify-between p-4">
             <h2 className="text-xl font-semibold text-gray-800">
-              {userMenuItems.find(item => location.pathname.startsWith(item.path))?.label || 'Dashboard'}
+              {userMenuItems.find(item => location.pathname === item.path || location.pathname.startsWith(item.path))?.label ||
+               (user?.rol === 'paciente' ? 'Mi Portal' : 'Dashboard')}
             </h2>
+
+            {/* Role Selector in header */}
+            <RoleSelector />
           </div>
         </header>
 

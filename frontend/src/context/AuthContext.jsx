@@ -15,55 +15,77 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [socket, setSocket] = useState(null);
+  const [demoMode, setDemoMode] = useState(true); // MODO DEMO ACTIVADO
+
+  // Usuarios de demo para cada rol
+  const demoUsers = {
+    admin: { id: 1, nombre: 'Admin Demo', email: 'admin@demo.com', rol: 'admin' },
+    medico: { id: 2, nombre: 'Dr. Médico', email: 'medico@demo.com', rol: 'medico' },
+    recepcion: { id: 3, nombre: 'Recepción Demo', email: 'recepcion@demo.com', rol: 'recepcion' },
+    caja: { id: 4, nombre: 'Caja Demo', email: 'caja@demo.com', rol: 'caja' },
+    paciente: { id: 5, nombre: 'Paciente Demo', email: 'paciente@demo.com', rol: 'paciente' }
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const rawApiUrl = import.meta.env.VITE_API_URL;
-      const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
-                      ? rawApiUrl
-                      : 'https://api.centro-salud.agentesia.cloud';
-      const rawSocketUrl = import.meta.env.VITE_SOCKET_URL;
-      const SOCKET_URL = (rawSocketUrl && rawSocketUrl !== 'undefined')
-                         ? rawSocketUrl
-                         : 'wss://api.centro-salud.agentesia.cloud';
-
-      fetch(`${API_URL}/api/auth/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) {
-          localStorage.removeItem('token');
-        } else {
-          setUser(data);
-          const socketInstance = io(SOCKET_URL, {
-            auth: {
-              token: token,
-              userId: data.id
-            }
-          });
-          setSocket(socketInstance);
-          socketInstance.on('connect', () => {
-            console.log('Socket connected:', socketInstance.id);
-            socketInstance.emit('join-room', 'all-users');
-          });
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        localStorage.removeItem('token');
-        setLoading(false);
-      });
-    } else {
+    if (demoMode) {
+      // En modo demo, iniciar directamente con rol admin
+      setUser(demoUsers.admin);
       setLoading(false);
+    } else {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const rawApiUrl = import.meta.env.VITE_API_URL;
+        const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
+                        ? rawApiUrl
+                        : 'https://api.centro-salud.agentesia.cloud';
+        const rawSocketUrl = import.meta.env.VITE_SOCKET_URL;
+        const SOCKET_URL = (rawSocketUrl && rawSocketUrl !== 'undefined')
+                           ? rawSocketUrl
+                           : 'wss://api.centro-salud.agentesia.cloud';
+
+        fetch(`${API_URL}/api/auth/profile`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            localStorage.removeItem('token');
+          } else {
+            setUser(data);
+            const socketInstance = io(SOCKET_URL, {
+              auth: {
+                token: token,
+                userId: data.id
+              }
+            });
+            setSocket(socketInstance);
+            socketInstance.on('connect', () => {
+              console.log('Socket connected:', socketInstance.id);
+              socketInstance.emit('join-room', 'all-users');
+            });
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          localStorage.removeItem('token');
+          setLoading(false);
+        });
+      } else {
+        setLoading(false);
+      }
     }
-  }, []);
+  }, [demoMode]);
 
   const login = async (email, password) => {
     try {
+      if (demoMode) {
+        // En modo demo, no requiere login real
+        setUser(demoUsers.admin);
+        return { success: true };
+      }
+
       const rawApiUrl = import.meta.env.VITE_API_URL;
       const API_URL = (rawApiUrl && rawApiUrl !== 'undefined')
                       ? rawApiUrl
@@ -112,8 +134,16 @@ export const AuthProvider = ({ children }) => {
       socket.disconnect();
     }
     localStorage.removeItem('token');
-    setUser(null);
+    if (demoMode) {
+      setUser(demoUsers.admin); // En demo, volver a admin en lugar de null
+    } else {
+      setUser(null);
+    }
     setSocket(null);
+  };
+
+  const changeRole = (role) => {
+    setUser(demoUsers[role]);
   };
 
   const hasRole = (roles) => {
@@ -124,9 +154,12 @@ export const AuthProvider = ({ children }) => {
     user,
     login,
     logout,
+    changeRole,
     hasRole,
     socket,
-    loading
+    loading,
+    demoMode,
+    setDemoMode
   };
 
   return (

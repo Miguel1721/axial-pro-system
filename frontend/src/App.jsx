@@ -2,10 +2,9 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
-import Login from './pages/Login';
 import LoadingSpinner from './components/LoadingSpinner';
 
-const ProtectedRoute = ({ children, roles }) => {
+const DemoRoute = ({ children, roles }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -13,7 +12,7 @@ const ProtectedRoute = ({ children, roles }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/dashboard" />;
   }
 
   if (roles && !roles.includes(user.rol)) {
@@ -37,78 +36,85 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        {/* Redirigir la raíz al dashboard */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         <Route
           path="/"
-          element={
-            <ProtectedRoute roles={['admin', 'medico', 'recepcion', 'caja']}>
-              <Layout />
-            </ProtectedRoute>
-          }
+          element={<Layout />}
         >
           <Route path="/dashboard" element={
-            <ProtectedRoute>
+            <DemoRoute>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <DashboardAdmin />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
 
           <Route path="/agenda" element={
-            <ProtectedRoute roles={['admin', 'medico', 'recepcion']}>
+            <DemoRoute roles={['admin', 'medico', 'recepcion']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <AgendaPage />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
 
           <Route path="/recepcion" element={
-            <ProtectedRoute roles={['admin', 'medico', 'recepcion']}>
+            <DemoRoute roles={['admin', 'medico', 'recepcion']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <RecepcionPage />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
 
           <Route path="/clinica" element={
-            <ProtectedRoute roles={['admin', 'medico']}>
+            <DemoRoute roles={['admin', 'medico']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <ClinicaPage />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
 
           <Route path="/caja" element={
-            <ProtectedRoute roles={['admin', 'recepcion', 'caja']}>
+            <DemoRoute roles={['admin', 'recepcion', 'caja']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <CajaPage />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
 
           <Route path="/inventario" element={
-            <ProtectedRoute roles={['admin']}>
+            <DemoRoute roles={['admin']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <InventarioPage />
               </React.Suspense>
-            </ProtectedRoute>
+            </DemoRoute>
           } />
         </Route>
 
         <Route
           path="/mi-portal"
           element={
-            <ProtectedRoute roles={['paciente']}>
-              <React.Suspense fallback={<LoadingSpinner />}>
-                <PortalPaciente />
-              </React.Suspense>
-            </ProtectedRoute>
+            <DemoRoute roles={['paciente']}>
+              <Layout />
+            </DemoRoute>
           }
         >
-          <Route path="citas" element={<PortalPaciente activeTab="citas" />} />
-          <Route path="historial" element={<PortalPaciente activeTab="historial" />} />
-          <Route path="bonos" element={<PortalPaciente activeTab="bonos" />} />
+          <Route path="citas" element={
+            <React.Suspense fallback={<LoadingSpinner />}>
+              <PortalPaciente activeTab="citas" />
+            </React.Suspense>
+          } />
+          <Route path="historial" element={
+            <React.Suspense fallback={<LoadingSpinner />}>
+              <PortalPaciente activeTab="historial" />
+            </React.Suspense>
+          } />
+          <Route path="bonos" element={
+            <React.Suspense fallback={<LoadingSpinner />}>
+              <PortalPaciente activeTab="bonos" />
+            </React.Suspense>
+          } />
         </Route>
       </Routes>
     </Router>
