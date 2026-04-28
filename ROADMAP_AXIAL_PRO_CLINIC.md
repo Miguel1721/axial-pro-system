@@ -32,7 +32,7 @@ Transformar Axial Pro Clinic en un sistema médico completo, moderno e inteligen
 ### Prioridad Alta
 - [x] **Modo Oscuro** ✅ - Toggle en navbar con persistencia en localStorage
 - [x] **Dashboard Personalizable** ✅ - Widgets reordenables según rol
-- [ ] **Notificaciones Real-time** - WebSocket + badges en iconos
+- [x] **Notificaciones Real-time** ✅ - Polling seguro + badges en iconos
 - [ ] **Micro-interacciones** - Animaciones de guardado, confirmaciones
 - [ ] **Accesibilidad** - Contraste WCAG AA, zoom configurable
 
