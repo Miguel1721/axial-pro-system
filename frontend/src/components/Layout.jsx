@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import NotificationBell from './NotificationBell';
 import RoleSelector from './RoleSelector';
 import ThemeToggle from './ThemeToggle';
 import {
@@ -73,6 +74,7 @@ const Layout = () => {
             <span className="font-semibold text-gray-800 dark:text-white">Axial Pro</span>
           </div>
           <div className="flex items-center space-x-2">
+            <NotificationBell />
             <ThemeToggle />
             <RoleSelector />
           </div>
@@ -115,6 +117,7 @@ const Layout = () => {
                 <span className="text-sm text-gray-600 dark:text-gray-300">Bienvenido,</span>
                 <span className="text-sm font-semibold text-gray-800 dark:text-white">{user?.nombre}</span>
               </div>
+              <NotificationBell />
               <ThemeToggle />
               <RoleSelector />
               <button
