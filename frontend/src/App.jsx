@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { ToastProvider, ToastContainer } from './components/ToastContainer';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -37,11 +38,12 @@ function App() {
 
   return (
     <NotificationProvider>
-      <ThemeProvider>
-        <Router>
-          <Routes>
-            {/* Redirigir la raíz al dashboard */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <ToastProvider>
+        <ThemeProvider>
+          <Router>
+            <Routes>
+              {/* Redirigir la raíz al dashboard */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         <Route
           path="/"
@@ -123,7 +125,8 @@ function App() {
       </Routes>
     </Router>
     </ThemeProvider>
-  </NotificationProvider>
+  </ToastProvider>
+</NotificationProvider>
   );
 }
 
