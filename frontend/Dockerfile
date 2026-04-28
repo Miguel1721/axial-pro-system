@@ -13,7 +13,7 @@ ARG VITE_API_URL
 ENV VITE_API_URL=${VITE_API_URL}
 
 # Esto fuerza a Vite a usar las variables de producción en la compilación
-RUN npm run build --mode production
+RUN npm run build
 
 # Etapa 2: Servidor Web Nginx
 FROM nginx:alpine
