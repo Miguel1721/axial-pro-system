@@ -3,6 +3,7 @@ import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import NotificationBell from './NotificationBell';
+import AccessibilityControl from './AccessibilityControl';
 import RoleSelector from './RoleSelector';
 import ThemeToggle from './ThemeToggle';
 import {
@@ -74,6 +75,7 @@ const Layout = () => {
             <span className="font-semibold text-gray-800 dark:text-white">Axial Pro</span>
           </div>
           <div className="flex items-center space-x-2">
+            <AccessibilityControl />
             <NotificationBell />
             <ThemeToggle />
             <RoleSelector />
@@ -117,6 +119,7 @@ const Layout = () => {
                 <span className="text-sm text-gray-600 dark:text-gray-300">Bienvenido,</span>
                 <span className="text-sm font-semibold text-gray-800 dark:text-white">{user?.nombre}</span>
               </div>
+              <AccessibilityControl />
               <NotificationBell />
               <ThemeToggle />
               <RoleSelector />
