@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -34,10 +35,11 @@ function App() {
   const { user } = useAuth();
 
   return (
-    <Router>
-      <Routes>
-        {/* Redirigir la raíz al dashboard */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          {/* Redirigir la raíz al dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         <Route
           path="/"
@@ -118,6 +120,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 }
 
