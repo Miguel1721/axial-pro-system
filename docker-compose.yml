@@ -49,6 +49,8 @@ services:
       - JWT_SECRET=super_secret_jwt_key_for_axial_pro_clinic_2026
       - JWT_EXPIRES_IN=24h
       - PORT=3000
+    ports:
+      - "18001:3000"  # Puerto temporal para debug
     depends_on:
       - db
     networks:
@@ -68,6 +70,8 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_URL=https://api.centro-salud.agentesia.cloud
+    ports:
+      - "18000:80"  # Puerto temporal para debug
     depends_on:
       - backend
     networks:

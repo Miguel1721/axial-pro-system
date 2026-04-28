@@ -1,0 +1,30 @@
+http:
+  routers:
+    centro-salud-web:
+      rule: "Host(`centro-salud.agentesia.cloud`) && !PathPrefix(`/api`)"
+      entryPoints:
+        - websecure
+      service: centro-salud-frontend
+      tls:
+        certResolver: letsencrypt
+      priority: 1
+
+    centro-salud-api:
+      rule: "Host(`api.centro-salud.agentesia.cloud`)"
+      entryPoints:
+        - websecure
+      service: centro-salud-backend
+      tls:
+        certResolver: letsencrypt
+      priority: 1
+
+  services:
+    centro-salud-frontend:
+      loadBalancer:
+        servers:
+          - url: "http://axial-pro-system-frontend-1:80"
+
+    centro-salud-backend:
+      loadBalancer:
+        servers:
+          - url: "http://axial-pro-system-backend-1:3000"
