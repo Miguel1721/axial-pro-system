@@ -51,8 +51,8 @@ services:
     image: axial-pro-system-backend
     environment:
       - NODE_ENV=production
-      - MOCK_MODE=true
-      - DB_HOST=mock-db
+      - MOCK_MODE=false
+      - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=axial_clinic_db
       - DB_USER=axial_admin

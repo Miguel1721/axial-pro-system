@@ -8,22 +8,25 @@ const { Pool } = require('pg');
 const pool = new Pool({
   host: process.env.DB_HOST || 'db',
   port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'axial_pro_db',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres'
+  database: process.env.DB_NAME || 'axial_clinic_db',
+  user: process.env.DB_USER || 'axial_admin',
+  password: process.env.DB_PASSWORD || 'axial_password_123'
 });
 
 /**
  * Inicializar tabla de turnos si no existe
  */
 const initializeTurnosTable = async () => {
+  // Primero eliminar tabla si existe para evitar problemas
+  const dropQuery = `DROP TABLE IF EXISTS turnos CASCADE;`;
+
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS turnos (
+    CREATE TABLE turnos (
       id SERIAL PRIMARY KEY,
-      cita_id INTEGER REFERENCES citas(id),
-      paciente_id INTEGER REFERENCES pacientes(id),
-      doctor_id INTEGER REFERENCES usuarios(id),
-      servicio_id INTEGER REFERENCES servicios(id),
+      cita_id INTEGER,
+      paciente_id INTEGER NOT NULL,
+      doctor_id INTEGER NOT NULL,
+      servicio_id INTEGER NOT NULL,
       numero_turno VARCHAR(20) UNIQUE NOT NULL,
       estado VARCHAR(20) DEFAULT 'esperando',
       prioridad INTEGER DEFAULT 3,
@@ -34,21 +37,42 @@ const initializeTurnosTable = async () => {
       tiempo_real INTEGER,
       sala VARCHAR(50),
       observaciones TEXT,
-      creado_por INTEGER REFERENCES usuarios(id),
-      actualizado_por INTEGER REFERENCES usuarios(id),
+      creado_por INTEGER,
+      actualizado_por INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE INDEX IF NOT EXISTS idx_turnos_estado ON turnos(estado);
-    CREATE INDEX IF NOT EXISTS idx_turnos_prioridad ON turnos(prioridad);
-    CREATE INDEX IF NOT EXISTS idx_turnos_doctor ON turnos(doctor_id);
-    CREATE INDEX IF NOT EXISTS idx_turnos_fecha ON turnos(hora_llegada);
+    CREATE INDEX idx_turnos_estado ON turnos(estado);
+    CREATE INDEX idx_turnos_prioridad ON turnos(prioridad);
+    CREATE INDEX idx_turnos_doctor ON turnos(doctor_id);
+    CREATE INDEX idx_turnos_fecha ON turnos(hora_llegada);
   `;
 
   try {
+    // Primero eliminar si existe
+    await pool.query(dropQuery);
+
+    // Luego crear nueva
     await pool.query(createTableQuery);
-    console.log('✅ Tabla de turnos inicializada correctamente');
+
+    // Verificar que la tabla se creó correctamente
+    const verifyQuery = `
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
+        AND table_name = 'turnos'
+      )
+    `;
+
+    const verifyResult = await pool.query(verifyQuery);
+    const tableExists = verifyResult.rows[0].exists;
+
+    if (tableExists) {
+      console.log('✅ Tabla de turnos inicializada correctamente');
+    } else {
+      console.error('❌ La tabla turnos NO se creó, aunque no hubo error');
+    }
   } catch (error) {
     console.error('❌ Error inicializando tabla de turnos:', error);
     throw error;
@@ -129,8 +153,8 @@ class Turno {
    */
   static async getAll(filters = {}) {
     let query = `
-      SELECT t.*, p.nombre as paciente_nombre, p.apellido as paciente_apellido,
-             u.nombre as doctor_nombre, u.apellido as doctor_apellido,
+      SELECT t.*, p.nombre as paciente_nombre,
+             u.nombre as doctor_nombre,
              s.nombre as servicio_nombre
       FROM turnos t
       LEFT JOIN pacientes p ON t.paciente_id = p.id
@@ -176,8 +200,8 @@ class Turno {
    */
   static async getById(id) {
     const query = `
-      SELECT t.*, p.nombre as paciente_nombre, p.apellido as paciente_apellido,
-             u.nombre as doctor_nombre, u.apellido as doctor_apellido,
+      SELECT t.*, p.nombre as paciente_nombre,
+             u.nombre as doctor_nombre,
              s.nombre as servicio_nombre
       FROM turnos t
       LEFT JOIN pacientes p ON t.paciente_id = p.id
@@ -200,8 +224,8 @@ class Turno {
    */
   static async getByNumero(numero_turno) {
     const query = `
-      SELECT t.*, p.nombre as paciente_nombre, p.apellido as paciente_apellido,
-             u.nombre as doctor_nombre, u.apellido as doctor_apellido,
+      SELECT t.*, p.nombre as paciente_nombre,
+             u.nombre as doctor_nombre,
              s.nombre as servicio_nombre
       FROM turnos t
       LEFT JOIN pacientes p ON t.paciente_id = p.id
@@ -322,7 +346,7 @@ class Turno {
    */
   static async getTurnoActual(doctor_id) {
     const query = `
-      SELECT t.*, p.nombre as paciente_nombre, p.apellido as paciente_apellido,
+      SELECT t.*, p.nombre as paciente_nombre,
              s.nombre as servicio_nombre
       FROM turnos t
       LEFT JOIN pacientes p ON t.paciente_id = p.id
@@ -347,7 +371,7 @@ class Turno {
    */
   static async getSiguienteTurno(doctor_id) {
     const query = `
-      SELECT t.*, p.nombre as paciente_nombre, p.apellido as paciente_apellido,
+      SELECT t.*, p.nombre as paciente_nombre,
              p.telefono as paciente_telefono,
              s.nombre as servicio_nombre
       FROM turnos t

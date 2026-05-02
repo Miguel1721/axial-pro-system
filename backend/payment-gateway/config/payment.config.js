@@ -8,7 +8,7 @@ class PaymentConfig {
     this.currentProvider = 'simulator'; // Default: simulator
     this.providers = {
       simulator: {
-        name: 'Simulador de Pagos',
+        name: 'Simulator',
         enabled: true,
         mode: 'demo',
         config: {}

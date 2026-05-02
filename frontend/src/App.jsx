@@ -35,6 +35,8 @@ const InventarioPage = React.lazy(() => import('./pages/InventarioPage'));
 const PortalPaciente = React.lazy(() => import('./pages/PortalPaciente'));
 const HistorialMedicoPage = React.lazy(() => import('./pages/HistorialMedicoPage'));
 const TelemedicinaPage = React.lazy(() => import('./pages/TelemedicinaPage'));
+const TurnosPage = React.lazy(() => import('./pages/TurnosPage'));
+const PantallaEsperaPage = React.lazy(() => import('./pages/PantallaEsperaPage'));
 
 function App() {
   const { user } = useAuth();
@@ -116,7 +118,21 @@ function App() {
               </React.Suspense>
             </DemoRoute>
           } />
+
+          <Route path="/turnos" element={
+            <DemoRoute roles={['admin', 'recepcion']}>
+              <React.Suspense fallback={<LoadingSpinner />}>
+                <TurnosPage />
+              </React.Suspense>
+            </DemoRoute>
+          } />
         </Route>
+
+        <Route path="/pantalla-espera" element={
+          <React.Suspense fallback={<LoadingSpinner />}>
+            <PantallaEsperaPage />
+          </React.Suspense>
+        } />
 
         <Route
           path="/mi-portal"
