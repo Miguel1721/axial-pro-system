@@ -3,9 +3,9 @@ import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import NotificationBell from './NotificationBell';
+import ThemeSelector from './ThemeSelector';
 import AccessibilityControl from './AccessibilityControl';
 import RoleSelector from './RoleSelector';
-import ThemeToggle from './ThemeToggle';
 import {
   LayoutDashboard,
   Calendar,
@@ -77,7 +77,7 @@ const Layout = () => {
           <div className="flex items-center space-x-2">
             <AccessibilityControl />
             <NotificationBell />
-            <ThemeToggle />
+            <ThemeSelector />
             <RoleSelector />
           </div>
         </div>
@@ -121,7 +121,7 @@ const Layout = () => {
               </div>
               <AccessibilityControl />
               <NotificationBell />
-              <ThemeToggle />
+              <ThemeSelector />
               <RoleSelector />
               <button
                 onClick={handleLogout}
