@@ -71,10 +71,10 @@ Todas las tareas de FASE 2 han sido completadas exitosamente.
   - [ ] Exportación a PDF (próximamente)
 
 - [ ] **Telemedicina**
-  - [ ] Videoconferencias integradas (WebRTC/Zoom)
-  - [ ] Chat en tiempo real durante consulta
-  - [ ] Recordatorios de citas online
+  - [x] Videoconferencias integradas (WebRTC)
+  - [x] Chat en tiempo real durante consulta
   - [ ] Prescripciones digitales
+  - [ ] Recordatorios de citas online
 
 - [ ] **Pagos Online**
   - [ ] Integración Stripe/local
