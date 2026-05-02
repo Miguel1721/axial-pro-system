@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LayoutDashboard, Users, Calendar, CreditCard, TrendingUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import DashboardWidgets from '../components/DashboardWidgets';
+import AnimatedCharts from '../components/AnimatedCharts';
 
 const DashboardAdmin = () => {
   const { isDark } = useTheme();
@@ -15,6 +16,7 @@ const DashboardAdmin = () => {
   const [loading, setLoading] = useState(true);
   const [proximasCitas, setProximasCitas] = useState([]);
   const [sesionesEnProgreso, setSesionesEnProgreso] = useState([]);
+  const [activeTab, setActiveTab] = useState('resumen');
 
   // Estado para widgets personalizados
   const [widgetOrder, setWidgetOrder] = useState(() => {
@@ -145,21 +147,47 @@ const DashboardAdmin = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Dashboard</h1>
           <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>Resumen del día de hoy</p>
         </div>
-        <button
-          onClick={() => setWidgetOrder(['stats', 'citas', 'sesiones'])}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-            isDark
-              ? 'bg-gray-700 text-white hover:bg-gray-600'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
-        >
-          Reset Widgets
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setActiveTab('resumen')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              activeTab === 'resumen'
+                ? 'bg-blue-600 text-white'
+                : isDark
+                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            📊 Resumen
+          </button>
+          <button
+            onClick={() => setActiveTab('graficos')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              activeTab === 'graficos'
+                ? 'bg-blue-600 text-white'
+                : isDark
+                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            📈 Gráficos
+          </button>
+          <button
+            onClick={() => setWidgetOrder(['stats', 'citas', 'sesiones'])}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              isDark
+                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            ↺ Reset
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -169,6 +197,9 @@ const DashboardAdmin = () => {
         </div>
       ) : (
         <div className="space-y-6">
+          {activeTab === 'resumen' ? (
+            <>
+              {/* Contenido del Resumen */}
           {widgetOrder.map((widgetType, widgetIndex) => {
             if (widgetType === 'stats') {
               return (
@@ -287,6 +318,10 @@ const DashboardAdmin = () => {
 
             return null;
           })}
+            </>
+          ) : (
+            <AnimatedCharts />
+          )}
         </div>
       )}
     </div>
