@@ -33,6 +33,7 @@ const ClinicaPage = React.lazy(() => import('./pages/ClinicaPage'));
 const CajaPage = React.lazy(() => import('./pages/CajaPage'));
 const InventarioPage = React.lazy(() => import('./pages/InventarioPage'));
 const PortalPaciente = React.lazy(() => import('./pages/PortalPaciente'));
+const HistorialMedicoPage = React.lazy(() => import('./pages/HistorialMedicoPage'));
 
 function App() {
   const { user } = useAuth();
@@ -95,6 +96,14 @@ function App() {
             <DemoRoute roles={['admin']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <InventarioPage />
+              </React.Suspense>
+            </DemoRoute>
+          } />
+
+          <Route path="/historial-medico" element={
+            <DemoRoute roles={['admin', 'medico']}>
+              <React.Suspense fallback={<LoadingSpinner />}>
+                <HistorialMedicoPage />
               </React.Suspense>
             </DemoRoute>
           } />
