@@ -16,7 +16,8 @@ import {
   CreditCard,
   Package,
   LogOut,
-  FileText
+  FileText,
+  Video
 } from 'lucide-react';
 
 const Layout = () => {
@@ -32,14 +33,16 @@ const Layout = () => {
       { path: '/clinica', icon: Stethoscope, label: 'Clínica' },
       { path: '/caja', icon: CreditCard, label: 'Caja' },
       { path: '/inventario', icon: Package, label: 'Inventario' },
-      { path: '/historial-medico', icon: FileText, label: 'Historial' }
+      { path: '/historial-medico', icon: FileText, label: 'Historial' },
+      { path: '/telemedicina', icon: Video, label: 'Telemedicina' }
     ],
     medico: [
       { path: '/dashboard', icon: LayoutDashboard, label: 'Panel' },
       { path: '/agenda', icon: Calendar, label: 'Agenda' },
       { path: '/recepcion', icon: Users, label: 'Sala' },
       { path: '/clinica', icon: Stethoscope, label: 'Clínica' },
-      { path: '/historial-medico', icon: FileText, label: 'Historial' }
+      { path: '/historial-medico', icon: FileText, label: 'Historial' },
+      { path: '/telemedicina', icon: Video, label: 'Telemedicina' }
     ],
     recepcion: [
       { path: '/dashboard', icon: LayoutDashboard, label: 'Panel' },

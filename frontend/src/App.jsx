@@ -34,6 +34,7 @@ const CajaPage = React.lazy(() => import('./pages/CajaPage'));
 const InventarioPage = React.lazy(() => import('./pages/InventarioPage'));
 const PortalPaciente = React.lazy(() => import('./pages/PortalPaciente'));
 const HistorialMedicoPage = React.lazy(() => import('./pages/HistorialMedicoPage'));
+const TelemedicinaPage = React.lazy(() => import('./pages/TelemedicinaPage'));
 
 function App() {
   const { user } = useAuth();
@@ -104,6 +105,14 @@ function App() {
             <DemoRoute roles={['admin', 'medico']}>
               <React.Suspense fallback={<LoadingSpinner />}>
                 <HistorialMedicoPage />
+              </React.Suspense>
+            </DemoRoute>
+          } />
+
+          <Route path="/telemedicina" element={
+            <DemoRoute roles={['admin', 'medico']}>
+              <React.Suspense fallback={<LoadingSpinner />}>
+                <TelemedicinaPage />
               </React.Suspense>
             </DemoRoute>
           } />
