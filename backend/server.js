@@ -14,6 +14,7 @@ const inventarioRoutes = require('./routes/inventario.routes');
 const cajaRoutes = require('./routes/caja.routes');
 const serviciosRoutes = require('./routes/servicios.routes');
 const cabinasRoutes = require('./routes/cabinas.routes');
+const paymentRoutes = require('./payment-gateway/routes/payment.routes');
 
 // Configuración de CORS para producción
 const allowedOrigins = process.env.NODE_ENV === 'production'
@@ -49,6 +50,7 @@ app.use('/api/inventario', inventarioRoutes);
 app.use('/api/caja', cajaRoutes);
 app.use('/api/servicios', serviciosRoutes);
 app.use('/api/cabinas', cabinasRoutes);
+app.use('/api/payments', paymentRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

@@ -76,11 +76,17 @@ Todas las tareas de FASE 2 han sido completadas exitosamente.
   - [ ] Prescripciones digitales
   - [ ] Recordatorios de citas online
 
-- [ ] **Pagos Online**
-  - [ ] Integración Stripe/local
-  - [ ] Facturación automática
-  - [ ] Historial de transacciones
-  - [ ] Reembolsos y devoluciones
+- [x] **Pagos Online** ✅
+  - [x] Sistema modular con múltiples pasarelas colombianas
+  - [x] Adaptadores: ePayco, Wompi, PayU, PlaceToPay, Stripe
+  - [x] Simulador de pagos para testing sin API keys
+  - [x] Panel de configuración admin para cambiar pasarelas
+  - [x] Componente de pago para pacientes
+  - [x] API REST completa con webhooks
+  - [x] Modo sandbox/production por pasarela
+  - [ ] Facturación automática (próximamente)
+  - [ ] Historial de transacciones en UI (próximamente)
+  - [ ] Reembolsos desde panel admin (próximamente)
 
 - [ ] **Gestión de Turnos**
   - [ ] Sistema de turnos con cola
