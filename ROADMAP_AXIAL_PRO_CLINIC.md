@@ -88,11 +88,15 @@ Todas las tareas de FASE 2 han sido completadas exitosamente.
   - [ ] Historial de transacciones en UI (próximamente)
   - [ ] Reembolsos desde panel admin (próximamente)
 
-- [ ] **Gestión de Turnos**
-  - [ ] Sistema de turnos con cola
-  - [ ] Tiempo estimado por paciente
-  - [ ] Pantallas de espera digital
-  - [ ] Alertas de turnos
+- [x] **Gestión de Turnos** ✅
+  - [x] Sistema de turnos con cola FIFO y prioridades
+  - [x] Tiempo estimado por paciente (algoritmo de cálculo)
+  - [x] Pantallas de espera digital con números y alertas
+  - [x] Panel de gestión para recepción (iniciar/completar/cancelar)
+  - [x] Estadísticas en tiempo real (total, esperando, atendiendo, completados)
+  - [x] Notificaciones sonoras y visuales
+  - [ ] Integración con sistema de citas existente (próximamente)
+  - [ ] SMS/email a pacientes cuando llegue su turno (próximamente)
 
 - [ ] **Alertas Medicamentos**
   - [ ] Interacciones farmacológicas
