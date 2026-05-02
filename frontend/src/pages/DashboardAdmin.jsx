@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutDashboard, Users, Calendar, CreditCard, TrendingUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
 import DashboardWidgets from '../components/DashboardWidgets';
 import AnimatedCharts from '../components/AnimatedCharts';
+import UserAvatar from '../components/UserAvatar';
 
 const DashboardAdmin = () => {
   const { isDark } = useTheme();
+  const { user } = useAuth();
 
   const [stats, setStats] = useState({
     totalPacientes: 0,
@@ -147,11 +150,24 @@ const DashboardAdmin = () => {
 
   return (
     <div className="space-y-6">
+      {/* Header con avatar y tabs */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Dashboard</h1>
-          <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>Resumen del día de hoy</p>
+        <div className="flex items-center gap-4">
+          {/* Avatar del usuario */}
+          <UserAvatar size="lg" showName={true} showRole={true} />
+
+          {/* Título y descripción */}
+          <div>
+            <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              Dashboard
+            </h1>
+            <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+              Resumen del día de hoy
+            </p>
+          </div>
         </div>
+
+        {/* Tabs de navegación */}
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('resumen')}

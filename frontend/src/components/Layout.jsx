@@ -6,6 +6,7 @@ import NotificationBell from './NotificationBell';
 import ThemeSelector from './ThemeSelector';
 import AccessibilityControl from './AccessibilityControl';
 import RoleSelector from './RoleSelector';
+import UserAvatar from './UserAvatar';
 import {
   LayoutDashboard,
   Calendar,
@@ -115,14 +116,18 @@ const Layout = () => {
             </nav>
 
             <div className="flex items-center space-x-3">
-              <div className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Bienvenido,</span>
-                <span className="text-sm font-semibold text-gray-800 dark:text-white">{user?.nombre}</span>
+              {/* Avatar del usuario con nombre y rol */}
+              <div className="hidden lg:block">
+                <UserAvatar size="sm" showName={true} showRole={true} />
               </div>
+
+              {/* Controles de accesibilidad, notificaciones, tema y rol */}
               <AccessibilityControl />
               <NotificationBell />
               <ThemeSelector />
               <RoleSelector />
+
+              {/* Botón de logout */}
               <button
                 onClick={handleLogout}
                 className="p-2 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all duration-200"
@@ -140,7 +145,10 @@ const Layout = () => {
         <div className="max-w-md mx-auto">
           <div className="mb-4">
             <h2 className="text-xl font-bold text-gray-800 dark:text-white">{currentPageLabel}</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Bienvenido, {user?.nombre}</p>
+            <div className="flex items-center gap-2">
+              <UserAvatar size="xs" showName={false} showRole={false} />
+              <p className="text-sm text-gray-500 dark:text-gray-400">Bienvenido, {user?.nombre}</p>
+            </div>
           </div>
           <Outlet />
         </div>
