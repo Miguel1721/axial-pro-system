@@ -77,12 +77,38 @@ export default defineConfig({
       }
     })
   ],
+  optimizeDeps: {
+    // FIX: Fuerza pre-bundling de librerías con ciclos internos
+    include: [
+      'recharts',
+      'd3-interpolate',
+      'd3-color',
+      'd3-scale',
+      'd3-shape',
+      'd3-path',
+    ]
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'esbuild',
-    target: 'es2015'
+    target: 'es2015',
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'CIRCULAR_DEPENDENCY') {
+          console.error('CIRCULAR:', warning.message);
+        }
+        warn(warning);
+      },
+      output: {
+        // FIX: Separa recharts en su propio chunk para evitar
+        // que Rollup mezcle su orden de inicialización con tu código
+        manualChunks: {
+          'recharts': ['recharts'],
+        }
+      }
+    }
   },
   server: {
     port: 5173,
