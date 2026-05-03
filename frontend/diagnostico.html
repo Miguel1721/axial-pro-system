@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico - Axial Pro Clinic</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #00ff00; }
+        h1 { color: #00ff00; }
+        .section { background: #2a2a2a; padding: 15px; margin: 10px 0; border: 1px solid #00ff00; }
+        .error { color: #ff0000; background: #3a0000; }
+        .success { color: #00ff00; background: #002a00; }
+        .warning { color: #ffff00; background: #3a3a00; }
+        button { background: #00ff00; color: #000; padding: 10px 20px; border: none; cursor: pointer; margin: 5px; }
+        button:hover { background: #00cc00; }
+        pre { background: #1a1a1a; padding: 10px; overflow-x: auto; }
+        .file-content { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DIAGNÓSTICO AXIAL PRO CLINIC</h1>
+    
+    <div class="section">
+        <h2>📊 Información del Navegador</h2>
+        <div id="browser-info"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔗 URL Actual</h2>
+        <div id="url-info"></div>
+    </div>
+    
+    <div class="section">
+        <h2>📄 Archivos JavaScript Cargados</h2>
+        <div id="js-files"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔍 Contenido del archivo JS principal</h2>
+        <div id="js-content"></div>
+    </div>
+    
+    <div class="section">
+        <h2>⚠️ Errores de JavaScript</h2>
+        <div id="js-errors"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔧 Service Workers</h2>
+        <div id="service-workers"></div>
+    </div>
+    
+    <div class="section">
+        <h2>💾 Cache del Navegador</h2>
+        <div id="cache-info"></div>
+    </div>
+
+    <script>
+        // Información del navegador
+        document.getElementById('browser-info').innerHTML = `
+            <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+            <p><strong>Plataforma:</strong> ${navigator.platform}</p>
+            <p><strong>Idioma:</strong> ${navigator.language}</p>
+            <p><strong>Cookies habilitadas:</strong> ${navigator.cookieEnabled}</p>
+            <p><strong>On-line:</strong> ${navigator.onLine}</p>
+        `;
+        
+        // URL actual
+        document.getElementById('url-info').innerHTML = `
+            <p><strong>URL:</strong> ${window.location.href}</p>
+            <p><strong>Protocolo:</strong> ${window.location.protocol}</p>
+            <p><strong>Host:</strong> ${window.location.host}</p>
+            <p><strong>Pathname:</strong> ${window.location.pathname}</p>
+        `;
+        
+        // Archivos JavaScript cargados
+        const scripts = document.getElementsByTagName('script');
+        let scriptsHTML = '<p><strong>Total de scripts:</strong> ' + scripts.length + '</p>';
+        scriptsHTML += '<ul>';
+        for (let script of scripts) {
+            const src = script.src || 'inline';
+            const status = src.includes('index-') ? ' 🎯 PRINCIPAL' : '';
+            scriptsHTML += `<li><strong>${src}</strong>${status}</li>`;
+        }
+        scriptsHTML += '</ul>';
+        document.getElementById('js-files').innerHTML = scriptsHTML;
+        
+        // Detectar archivo JS principal
+        const mainScript = Array.from(scripts).find(s => s.src && s.src.includes('index-'));
+        
+        if (mainScript) {
+            const scriptUrl = mainScript.src;
+            document.getElementById('js-content').innerHTML = `
+                <p class="success"><strong>Archivo principal encontrado:</strong> ${scriptUrl}</p>
+                <button onclick="fetchAndShowJS('${scriptUrl}')">Ver contenido del archivo</button>
+                <button onclick="checkForErrors('${scriptUrl}')">Buscar errores específicos</button>
+                <div id="js-file-content" class="file-content"></div>
+            `;
+        } else {
+            document.getElementById('js-content').innerHTML = `
+                <p class="error">No se encontró el archivo JavaScript principal index-*.js</p>
+            `;
+        }
+        
+        // Función para obtener y mostrar el contenido del JS
+        async function fetchAndShowJS(url) {
+            try {
+                const response = await fetch(url);
+                const content = await response.text();
+                
+                // Buscar el error específico
+                const hasError = content.includes('Cannot access') || content.includes('before initialization');
+                
+                let analysis = '<div class="section">';
+                analysis += `<p><strong>Tamaño:</strong> ${content.length} caracteres</p>`;
+                analysis += `<p><strong>Header:</strong> ${content.substring(0, 200)}...</p>`;
+                
+                if (hasError) {
+                    analysis += '<p class="error">⚠️ SE DETECTÓ EL ERROR "Cannot access" EN EL CÓDIGO</p>';
+                } else {
+                    analysis += '<p class="success">✅ NO SE DETECTÓ EL ERROR "Cannot access" EN EL CÓDIGO</p>';
+                }
+                
+                analysis += '</div>';
+                
+                document.getElementById('js-file-content').innerHTML = analysis;
+                
+            } catch (error) {
+                document.getElementById('js-file-content').innerHTML = 
+                    `<p class="error">Error al obtener el archivo: ${error.message}</p>`;
+            }
+        }
+        
+        // Función para buscar errores específicos
+        async function checkForErrors(url) {
+            try {
+                const response = await fetch(url);
+                const content = await response.text();
+                
+                let errorReport = '<div class="section">';
+                errorReport += '<h3>Búsqueda de Errores Conocidos:</h3>';
+                
+                // Buscar el error específico mencionado
+                if (content.includes('Cannot access') && content.includes('before initialization')) {
+                    errorReport += '<p class="error">❌ ERROR ENCONTRADO: "Cannot access ... before initialization"</p>';
+                    errorReport += '<p class="warning">Este error indica un problema de dependencias circulares en el código.</p>';
+                } else {
+                    errorReport += '<p class="success">✅ NO SE ENCONTRÓ EL ERROR "Cannot access ... before initialization"</p>';
+                }
+                
+                // Buscar variables problemáticas
+                const problematicPatterns = [
+                    /const\s+ey\s*=/,
+                    /let\s+ey\s*=/,
+                    /var\s+ey\s*=/,
+                    /function\s+ey\s*\(/
+                ];
+                
+                let foundPatterns = [];
+                problematicPatterns.forEach(pattern => {
+                    if (pattern.test(content)) {
+                        foundPatterns.push(pattern.toString());
+                    }
+                });
+                
+                if (foundPatterns.length > 0) {
+                    errorReport += '<p class="warning">⚠️ Se encontraron patrones que podrían causar el error:</p>';
+                    errorReport += '<ul>';
+                    foundPatterns.forEach(p => {
+                        errorReport += `<li>${p}</li>`;
+                    });
+                    errorReport += '</ul>';
+                } else {
+                    errorReport += '<p class="success">✅ No se encontraron patrones problemáticos</p>';
+                }
+                
+                errorReport += '</div>';
+                document.getElementById('js-file-content').innerHTML = errorReport;
+                
+            } catch (error) {
+                document.getElementById('js-file-content').innerHTML = 
+                    `<p class="error">Error al analizar: ${error.message}</p>`;
+            }
+        }
+        
+        // Capturar errores de JavaScript
+        let errorCount = 0;
+        window.addEventListener('error', function(e) {
+            errorCount++;
+            const errorDiv = document.getElementById('js-errors');
+            errorDiv.innerHTML += `
+                <div class="error">
+                    <p><strong>Error ${errorCount}:</strong> ${e.message}</p>
+                    <p><strong>Archivo:</strong> ${e.filename}</p>
+                    <p><strong>Línea:</strong> ${e.lineno}:${e.colno}</p>
+                    <p><strong>Stack:</strong></p>
+                    <pre>${e.error ? e.error.stack : 'No disponible'}</pre>
+                </div>
+            `;
+        });
+        
+        // Ver errores que ya ocurrieron
+        setTimeout(() => {
+            if (errorCount === 0) {
+                document.getElementById('js-errors').innerHTML = 
+                    '<p class="success">✅ No se detectaron errores de JavaScript</p>';
+            }
+        }, 1000);
+        
+        // Service Workers
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                let swHTML = '<p><strong>Service Workers registrados:</strong> ' + registrations.length + '</p>';
+                if (registrations.length > 0) {
+                    swHTML += '<ul>';
+                    registrations.forEach(registration => {
+                        swHTML += `<li><strong>${registration.scope}</strong> - Estado: ${registration.active ? 'Activo' : 'Inactivo'}`;
+                        swHTML += `<br><button onclick="unregisterSW('${registration.scope}')">Desregistrar este Service Worker</button></li>`;
+                    });
+                    swHTML += '</ul>';
+                    swHTML += '<p class="warning">⚠️ Los Service Workers pueden cachear versiones viejas. Desregístralos para limpiar el cache.</p>';
+                } else {
+                    swHTML += '<p class="success">✅ No hay Service Workers registrados</p>';
+                }
+                document.getElementById('service-workers').innerHTML = swHTML;
+            });
+        }
+        
+        // Función para desregistrar Service Workers
+        function unregisterSW(scope) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                registrations.forEach(registration => {
+                    if (registration.scope === scope) {
+                        registration.unregister();
+                        alert('Service Worker desregistrado. Recarga la página.');
+                        location.reload();
+                    }
+                });
+            });
+        }
+        
+        // Cache del navegador
+        if ('caches' in window) {
+            caches.keys().then(function(cacheNames) {
+                let cacheHTML = '<p><strong>Caches encontrados:</strong> ' + cacheNames.length + '</p>';
+                if (cacheNames.length > 0) {
+                    cacheHTML += '<ul>';
+                    cacheNames.forEach(cacheName => {
+                        cacheHTML += `<li><strong>${cacheName}</strong></li>`;
+                    });
+                    cacheHTML += '</ul>';
+                    cacheHTML += '<button onclick="clearAllCaches()">Borrar todos los caches</button>';
+                    cacheHTML += '<p class="warning">⚠️ El cache puede contener versiones viejas de los archivos.</p>';
+                } else {
+                    cacheHTML += '<p class="success">✅ No hay caches almacenados</p>';
+                }
+                document.getElementById('cache-info').innerHTML = cacheHTML;
+            });
+        }
+        
+        // Función para limpiar todos los caches
+        function clearAllCaches() {
+            caches.keys().then(function(cacheNames) {
+                cacheNames.forEach(cacheName => {
+                    caches.delete(cacheName);
+                });
+                alert('Todos los caches han sido borrados. Recarga la página.');
+                location.reload();
+            });
+        }
+        
+        // Auto-verificar después de 2 segundos
+        setTimeout(() => {
+            if (mainScript) {
+                checkForErrors(mainScript.src);
+            }
+        }, 2000);
+    </script>
+    
+    <div class="section">
+        <h2>🔄 Acciones</h2>
+        <button onclick="location.reload()">Recargar página</button>
+        <button onclick="hardReload()">Recarga completa (Ctrl+F5)</button>
+        <button onclick="location.href='/?nocache=' + Date.now()">Forzar sin cache</button>
+    </div>
+    
+    <script>
+        function hardReload() {
+            location.reload(true);
+        }
+    </script>
+</body>
+</html>
