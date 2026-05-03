@@ -81,7 +81,8 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser'
+    minify: 'esbuild',
+    target: 'es2015'
   },
   server: {
     port: 5173,
