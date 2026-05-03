@@ -17,6 +17,31 @@ const cabinasRoutes = require('./routes/cabinas.routes');
 const paymentRoutes = require('./payment-gateway/routes/payment.routes');
 const turnosRoutes = require('./routes/turnos.routes');
 const medicamentosRoutes = require('./routes/medicamentos.routes');
+const prediccionesRoutes = require('./routes/predicciones.routes');
+const optimizacionRoutes = require('./routes/optimizacion.routes');
+const chatbotRoutes = require('./routes/chatbot.routes');
+const analisisRoutes = require('./routes/analisis.routes');
+const reconocimientoVozRoutes = require('./routes/reconocimientoVoz.routes');
+const iavisionRoutes = require('./routes/iavision.routes');
+const alertasStockRoutes = require('./routes/alertasStock.routes');
+const recordatoriosRoutes = require('./routes/recordatorios.routes');
+const sentimientoPacienteRoutes = require('./routes/sentimientoPaciente.routes');
+const sugerenciasCitasRoutes = require('./routes/sugerenciasCitas.routes');
+
+// FASE 5: Infraestructura y Escalabilidad
+const analyticsRoutes = require('./routes/analytics.routes');
+const abTestingRoutes = require('./routes/ab-testing.routes');
+const deploymentRoutes = require('./routes/deployment.routes');
+const cdnRoutes = require('./routes/cdn.routes');
+const WebSocketService = require('./services/websocket.service');
+
+// FASE 6: Seguridad y Cumplimiento
+const securityRoutes = require('./routes/security.routes');
+
+// FASE 7: Monetización y Negocio
+const monetizationRoutes = require('./routes/monetization.routes');
+const payPerUseRoutes = require('./routes/pay-per-use.routes');
+const adminBusinessRoutes = require('./routes/admin-business.routes');
 
 // Configuración de CORS para producción
 const allowedOrigins = process.env.NODE_ENV === 'production'
@@ -25,13 +50,10 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: allowedOrigins,
-    methods: ["GET", "POST"],
-    credentials: true
-  }
-});
+
+// Inicializar WebSocket Service completo
+const wsService = new WebSocketService(server);
+const io = wsService.io;
 
 const corsOptions = {
   origin: allowedOrigins,
@@ -55,21 +77,43 @@ app.use('/api/cabinas', cabinasRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/turnos', turnosRoutes);
 app.use('/api/medicamentos', medicamentosRoutes);
+app.use('/api/predicciones', prediccionesRoutes);
+app.use('/api/optimizaciones', optimizacionRoutes);
+app.use('/api/chatbot', chatbotRoutes);
+app.use('/api/analisis', analisisRoutes);
+app.use('/api/reconocimiento-voz', reconocimientoVozRoutes);
+app.use('/api/iavision', iavisionRoutes);
+app.use('/api/alertasStock', alertasStockRoutes);
+app.use('/api/recordatorios', recordatoriosRoutes);
+app.use('/api/sentimientoPaciente', sentimientoPacienteRoutes);
+app.use('/api/sugerenciasCitas', sugerenciasCitasRoutes);
+
+// FASE 5: Rutas de Infraestructura
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/ab-testing', abTestingRoutes);
+app.use('/api/deployment', deploymentRoutes);
+app.use('/api/cdn', cdnRoutes);
+
+// FASE 6: Rutas de Seguridad y Cumplimiento
+app.use('/api/security', securityRoutes);
+
+// FASE 7: Rutas de Monetización y Negocio
+app.use('/api/monetization', monetizationRoutes);
+app.use('/api/pay-per-use', payPerUseRoutes);
+app.use('/api/admin', adminBusinessRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-io.on('connection', (socket) => {
-  console.log('Cliente conectado:', socket.id);
-
-  socket.on('join-room', (room) => {
-    socket.join(room);
-    console.log(`Cliente ${socket.id} se unió a ${room}`);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Cliente desconectado:', socket.id);
+// FASE 5: Endpoints de WebSocket
+app.get('/socketio/status', (req, res) => {
+  res.json({
+    success: true,
+    connectedUsers: wsService.getConnectedUsers().length,
+    rooms: wsService.getRoomStats(),
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
   });
 });
 
@@ -79,6 +123,12 @@ const HOST = '0.0.0.0';
 server.listen(PORT, HOST, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔌 WebSocket Service initialized`);
+  console.log(`📊 Analytics Service initialized`);
+  console.log(`🧪 A/B Testing Service initialized`);
+  console.log(`🚀 Deployment Service initialized`);
+  console.log(`🌐 CDN Service initialized`);
+  console.log(`🛡️ Security & Compliance Service initialized`);
 });
 
-module.exports = { app, io };
+module.exports = { app, io, wsService };

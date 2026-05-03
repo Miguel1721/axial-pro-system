@@ -1,0 +1,737 @@
+{
+  "modulos": [
+    {
+      "id": 1,
+      "nombre": "Predicción de Demanda",
+      "archivosBackend": [
+        {
+          "archivo": "routes/predicciones.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/predicciones.model.js",
+          "estado": "FALTANTE"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/PrediccionesPage.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/predicciones/demanda",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/predicciones/metrics",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Análisis de demanda histórica",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Predicción de citas futuras",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Métricas de precisión",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [],
+      "score": 63
+    },
+    {
+      "id": 2,
+      "nombre": "Optimización de Citas",
+      "archivosBackend": [
+        {
+          "archivo": "routes/optimizacion.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/optimizacion.model.js",
+          "estado": "FALTANTE"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/OptimizacionesPage.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/optimizaciones/citas",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "POST /api/optimizaciones/agenda",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Algoritmo de optimización",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Reducción de vacíos",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Balanceo de médicos",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [],
+      "score": 63
+    },
+    {
+      "id": 3,
+      "nombre": "Chatbot de Triaje",
+      "archivosBackend": [
+        {
+          "archivo": "routes/chatbot.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/chatbot.model.js",
+          "estado": "FALTANTE"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/ChatbotPage.jsx",
+          "estado": "OK"
+        },
+        {
+          "archivo": "components/ChatbotTriaje.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "POST /api/chatbot/iniciar",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "POST /api/chatbot/enviar",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Clasificación de urgencias",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Preguntas adaptativas",
+          "estado": "NO VERIFICABLE"
+        },
+        {
+          "funcionalidad": "Redirección automática",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟠 INSUFICIENTE",
+      "problemas": [
+        {
+          "archivo": "routes/chatbot.routes.js",
+          "tipo": "STUB",
+          "mensaje": "Código contiene TODOs o implementaciones pendientes"
+        }
+      ],
+      "score": 56
+    },
+    {
+      "id": 4,
+      "nombre": "Análisis de Historial",
+      "archivosBackend": [
+        {
+          "archivo": "routes/analisis.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/analisisHistorial.model.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/AnalisisPage.jsx",
+          "estado": "OK"
+        },
+        {
+          "archivo": "components/AnalisisHistorial.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/analisis/historial",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/analisis/patrones",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Detección de patrones recurrentes",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Alertas tempranas",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Tendencias de salud",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [],
+      "score": 78
+    },
+    {
+      "id": 5,
+      "nombre": "Reconocimiento Voz",
+      "archivosBackend": [
+        {
+          "archivo": "routes/reconocimientoVoz.routes.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/ReconocimientoVozPage.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "POST /api/reconocimiento-voz/transcribir",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "POST /api/reconocimiento-voz/comando",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Transcripción de audio",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Dictado de notas médicas",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Búsqueda por voz",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [],
+      "score": 71
+    },
+    {
+      "id": 6,
+      "nombre": "Alertas de Stock",
+      "archivosBackend": [
+        {
+          "archivo": "routes/alertasStock.routes.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/AlertasPage.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/alertas-stock/prediccion",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/alertas-stock/sugerencias",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Predicción de agotamiento",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Sugerencias de reabastecimiento",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Optimización de inventario",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [
+        {
+          "archivo": "routes/alertasStock.routes.js",
+          "tipo": "MOCK_DATA",
+          "mensaje": "Uso de datos mock en lugar de implementación real"
+        }
+      ],
+      "score": 71
+    },
+    {
+      "id": 7,
+      "nombre": "Sentimiento Pacientes",
+      "archivosBackend": [
+        {
+          "archivo": "routes/sentimientoPaciente.routes.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "components/SentimientoPaciente.jsx",
+          "estado": "FALTANTE"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/sentimiento-paciente/analisis",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/sentimiento-paciente/nps",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Análisis de feedbacks",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Detección de quejas",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Cálculo de NPS",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟠 INSUFICIENTE",
+      "problemas": [
+        {
+          "archivo": "routes/sentimientoPaciente.routes.js",
+          "tipo": "CLEAN_CODE",
+          "mensaje": "Excesivo uso de console.log para producción"
+        },
+        {
+          "archivo": "routes/sentimientoPaciente.routes.js",
+          "tipo": "MOCK_DATA",
+          "mensaje": "Uso de datos mock en lugar de implementación real"
+        }
+      ],
+      "score": 57
+    },
+    {
+      "id": 8,
+      "nombre": "Sugerencias de Citas",
+      "archivosBackend": [
+        {
+          "archivo": "routes/sugerenciasCitas.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/sugerenciasCitas.model.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "components/SugerenciasCitas.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/sugerencias-citas/optimas",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/sugerencias-citas/medico",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Horarios óptimos",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Médico más adecuado",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Preparación previa",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [
+        {
+          "archivo": "models/sugerenciasCitas.model.js",
+          "tipo": "CLEAN_CODE",
+          "mensaje": "Excesivo uso de console.log para producción"
+        }
+      ],
+      "score": 75
+    },
+    {
+      "id": 9,
+      "nombre": "Automatización Recordatorios",
+      "archivosBackend": [
+        {
+          "archivo": "routes/recordatorios.routes.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "components/Recordatorios.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/recordatorios/configurar",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/recordatorios/estadisticas",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "SMS/WhatsApp optimizados",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Horarios inteligentes",
+          "estado": "NO VERIFICABLE"
+        },
+        {
+          "funcionalidad": "Estadísticas de efectividad",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟠 INSUFICIENTE",
+      "problemas": [
+        {
+          "archivo": "routes/recordatorios.routes.js",
+          "tipo": "MOCK_DATA",
+          "mensaje": "Uso de datos mock en lugar de implementación real"
+        }
+      ],
+      "score": 57
+    },
+    {
+      "id": 10,
+      "nombre": "IA Vision",
+      "archivosBackend": [
+        {
+          "archivo": "routes/iavision.routes.js",
+          "estado": "OK"
+        },
+        {
+          "archivo": "models/iavision.model.js",
+          "estado": "OK"
+        }
+      ],
+      "archivosFrontend": [
+        {
+          "archivo": "pages/IAVisionPage.jsx",
+          "estado": "OK"
+        },
+        {
+          "archivo": "pages/ChatbotTriajePage.jsx",
+          "estado": "OK"
+        },
+        {
+          "archivo": "components/ChatbotTriaje.jsx",
+          "estado": "OK"
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "GET /api/iavision/ocupacion-maxima",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/iavision/dias-criticos",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "GET /api/iavision/prediccion-picos",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "POST /api/iavision/optimizar-calendario",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        },
+        {
+          "endpoint": "POST /api/iavision/chatbot-triaje",
+          "estado": "FALTANTE",
+          "razon": "endpoint no registrado"
+        }
+      ],
+      "funcionalidades": [
+        {
+          "funcionalidad": "Ocupación máxima horarios",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Días críticos y alertas",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Optimización de calendario",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Predicción de picos estacionales",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Chatbot de triaje 24/7",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "OCR documentos médicos",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Análisis de imágenes médicas",
+          "estado": "IMPLEMENTADA"
+        },
+        {
+          "funcionalidad": "Reconocimiento facial check-in",
+          "estado": "IMPLEMENTADA"
+        }
+      ],
+      "estado": "🟡 PARCIAL",
+      "problemas": [],
+      "score": 72
+    }
+  ],
+  "problemas": [
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "CRÍTICO",
+      "mensaje": "Archivo backend faltante: models/predicciones.model.js"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/predicciones/demanda"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/predicciones/metrics"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "CRÍTICO",
+      "mensaje": "Archivo backend faltante: models/optimizacion.model.js"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/optimizaciones/citas"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/optimizaciones/agenda"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "CRÍTICO",
+      "mensaje": "Archivo backend faltante: models/chatbot.model.js"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/chatbot/iniciar"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/chatbot/enviar"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/analisis/historial"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/analisis/patrones"
+    },
+    {
+      "modulo": "Reconocimiento Voz",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/reconocimiento-voz/transcribir"
+    },
+    {
+      "modulo": "Reconocimiento Voz",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/reconocimiento-voz/comando"
+    },
+    {
+      "modulo": "Alertas de Stock",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/alertas-stock/prediccion"
+    },
+    {
+      "modulo": "Alertas de Stock",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/alertas-stock/sugerencias"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "ALTO",
+      "mensaje": "Archivo frontend faltante: components/SentimientoPaciente.jsx"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/sentimiento-paciente/analisis"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/sentimiento-paciente/nps"
+    },
+    {
+      "modulo": "Sugerencias de Citas",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/sugerencias-citas/optimas"
+    },
+    {
+      "modulo": "Sugerencias de Citas",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/sugerencias-citas/medico"
+    },
+    {
+      "modulo": "Automatización Recordatorios",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/recordatorios/configurar"
+    },
+    {
+      "modulo": "Automatización Recordatorios",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/recordatorios/estadisticas"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/iavision/ocupacion-maxima"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/iavision/dias-criticos"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: GET /api/iavision/prediccion-picos"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/iavision/optimizar-calendario"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "CRÍTICO",
+      "mensaje": "Endpoint no registrado: POST /api/iavision/chatbot-triaje"
+    }
+  ],
+  "exitos": [],
+  "severidad": {
+    "critico": [
+      "Módulo 1: models/predicciones.model.js",
+      "Módulo 1: GET /api/predicciones/demanda",
+      "Módulo 1: GET /api/predicciones/metrics",
+      "Módulo 2: models/optimizacion.model.js",
+      "Módulo 2: GET /api/optimizaciones/citas",
+      "Módulo 2: POST /api/optimizaciones/agenda",
+      "Módulo 3: models/chatbot.model.js",
+      "Módulo 3: POST /api/chatbot/iniciar",
+      "Módulo 3: POST /api/chatbot/enviar",
+      "Módulo 4: GET /api/analisis/historial",
+      "Módulo 4: GET /api/analisis/patrones",
+      "Módulo 5: POST /api/reconocimiento-voz/transcribir",
+      "Módulo 5: POST /api/reconocimiento-voz/comando",
+      "Módulo 6: GET /api/alertas-stock/prediccion",
+      "Módulo 6: GET /api/alertas-stock/sugerencias",
+      "Módulo 7: GET /api/sentimiento-paciente/analisis",
+      "Módulo 7: GET /api/sentimiento-paciente/nps",
+      "Módulo 8: GET /api/sugerencias-citas/optimas",
+      "Módulo 8: GET /api/sugerencias-citas/medico",
+      "Módulo 9: GET /api/recordatorios/configurar",
+      "Módulo 9: GET /api/recordatorios/estadisticas",
+      "Módulo 10: GET /api/iavision/ocupacion-maxima",
+      "Módulo 10: GET /api/iavision/dias-criticos",
+      "Módulo 10: GET /api/iavision/prediccion-picos",
+      "Módulo 10: POST /api/iavision/optimizar-calendario",
+      "Módulo 10: POST /api/iavision/chatbot-triaje"
+    ],
+    "alto": [
+      "Módulo 7: components/SentimientoPaciente.jsx"
+    ],
+    "medio": [],
+    "bajo": []
+  }
+}

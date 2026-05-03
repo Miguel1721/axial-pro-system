@@ -1,0 +1,617 @@
+{
+  "modulos": [
+    {
+      "id": 1,
+      "nombre": "Predicción de Demanda",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/predicciones.routes.js",
+          "existe": true
+        },
+        {
+          "archivo": "models/prediccionDemanda.model.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/demanda"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/demanda/fecha/:fecha"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/dias-criticos"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/demanda/recalcular"
+          },
+          "definido": false
+        }
+      ],
+      "score": 67,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 2,
+      "nombre": "Optimización de Citas",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/optimizacion.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/pendientes"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/resumen"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/recalcular"
+          },
+          "definido": false
+        }
+      ],
+      "score": 60,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 3,
+      "nombre": "Chatbot de Triaje",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/chatbot.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/configuracion"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/iniciar"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/enviar"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 4,
+      "nombre": "Análisis de Historial",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/analisis.routes.js",
+          "existe": true
+        },
+        {
+          "archivo": "models/analisisHistorial.model.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/historial/:pacienteId"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/patrones/:pacienteId"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/dashboard"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 5,
+      "nombre": "Reconocimiento Voz",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/reconocimientoVoz.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estado"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/iniciar"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/detener"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 6,
+      "nombre": "Alertas de Stock",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/alertasStock.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/detectar"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 7,
+      "nombre": "Sentimiento Pacientes",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/sentimientoPaciente.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/feedbacks"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/nps"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/tendencias"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 8,
+      "nombre": "Sugerencias de Citas",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/sugerenciasCitas.routes.js",
+          "existe": true
+        },
+        {
+          "archivo": "models/sugerenciasCitas.model.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/:pacienteId"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/generar"
+          },
+          "definido": false
+        }
+      ],
+      "score": 77,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 9,
+      "nombre": "Automatización Recordatorios",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/recordatorios.routes.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/configuraciones"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/estadisticas"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/programar"
+          },
+          "definido": false
+        }
+      ],
+      "score": 71,
+      "estado": "🟡 NECESITA MEJORAS"
+    },
+    {
+      "id": 10,
+      "nombre": "IA Vision",
+      "rutaRegistrada": true,
+      "archivosExistentes": [
+        {
+          "archivo": "routes/iavision.routes.js",
+          "existe": true
+        },
+        {
+          "archivo": "models/iavision.model.js",
+          "existe": true
+        }
+      ],
+      "endpointsDefinidos": [
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/ocupacion-maxima"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/dias-criticos"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "GET",
+            "path": "/prediccion-picos"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/optimizar-calendario"
+          },
+          "definido": false
+        },
+        {
+          "endpoint": {
+            "metodo": "POST",
+            "path": "/chatbot-triaje"
+          },
+          "definido": false
+        }
+      ],
+      "score": 67,
+      "estado": "🟡 NECESITA MEJORAS"
+    }
+  ],
+  "problemasCriticos": [
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /demanda"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /demanda/fecha/:fecha"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /dias-criticos"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Predicción de Demanda",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /demanda/recalcular"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /pendientes"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /resumen"
+    },
+    {
+      "modulo": "Optimización de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /recalcular"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /configuracion"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /iniciar"
+    },
+    {
+      "modulo": "Chatbot de Triaje",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /enviar"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /historial/:pacienteId"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /patrones/:pacienteId"
+    },
+    {
+      "modulo": "Análisis de Historial",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /dashboard"
+    },
+    {
+      "modulo": "Reconocimiento Voz",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estado"
+    },
+    {
+      "modulo": "Reconocimiento Voz",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /iniciar"
+    },
+    {
+      "modulo": "Reconocimiento Voz",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /detener"
+    },
+    {
+      "modulo": "Alertas de Stock",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /detectar"
+    },
+    {
+      "modulo": "Alertas de Stock",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /"
+    },
+    {
+      "modulo": "Alertas de Stock",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /feedbacks"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /nps"
+    },
+    {
+      "modulo": "Sentimiento Pacientes",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /tendencias"
+    },
+    {
+      "modulo": "Sugerencias de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /:pacienteId"
+    },
+    {
+      "modulo": "Sugerencias de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Sugerencias de Citas",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /generar"
+    },
+    {
+      "modulo": "Automatización Recordatorios",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /configuraciones"
+    },
+    {
+      "modulo": "Automatización Recordatorios",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /estadisticas"
+    },
+    {
+      "modulo": "Automatización Recordatorios",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /programar"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /ocupacion-maxima"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /dias-criticos"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: GET /prediccion-picos"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /optimizar-calendario"
+    },
+    {
+      "modulo": "IA Vision",
+      "severidad": "MEDIO",
+      "problema": "Endpoint no definido: POST /chatbot-triaje"
+    }
+  ],
+  "veredicto": "BUENO"
+}
