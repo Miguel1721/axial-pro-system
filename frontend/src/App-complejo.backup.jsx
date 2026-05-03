@@ -1,9 +1,14 @@
 /**
- * App - VERSIÓN CORREGIDA (Mantiene toda la funcionalidad)
+ * App - Versión Optimizada con React Query
  *
- * CORRECCIÓN CRÍTICA: Reorganizado orden de providers para resolver
- * la dependencia circular donde ErrorBoundary usa useTheme
+ * Mejoras implementadas:
+ * - QueryProvider de React Query
+ * - Error Boundary global
+ * - Toast System mejorado
+ * - React.memo en componentes principales
+ * - Lazy loading optimizado
  */
+
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
@@ -16,7 +21,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 
-// Lazy loading de páginas (Mantiene optimización)
+// Lazy loading de páginas (ya implementado, solo lo reorganizamos)
 const DashboardAdmin = React.lazy(() => import('./pages/DashboardAdmin'));
 const AgendaPage = React.lazy(() => import('./pages/AgendaPage'));
 const RecepcionPage = React.lazy(() => import('./pages/RecepcionPage'));
@@ -64,11 +69,11 @@ function App() {
   const { user } = useAuth();
 
   return (
-    <ThemeProvider> {/* CRÍTICO: ThemeProvider PRIMERO para ErrorBoundary */}
-      <ErrorBoundary>
-        <AccessibilityProvider>
-          <NotificationProvider>
-            <ToastProvider>
+    <ErrorBoundary>
+      <AccessibilityProvider>
+        <NotificationProvider>
+          <ToastProvider>
+            <ThemeProvider>
               <QueryProvider>
                 <Router>
                   <Routes>
@@ -109,7 +114,7 @@ function App() {
                       } />
 
                       <Route path="/caja" element={
-                        <DemoRoute roles={['admin', 'caja']}>
+                        <DemoRoute roles={['admin', 'recepcion', 'caja']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <CajaPage />
                           </React.Suspense>
@@ -141,23 +146,15 @@ function App() {
                       } />
 
                       <Route path="/turnos" element={
-                        <DemoRoute roles={['admin', 'medico', 'recepcion', 'paciente']}>
+                        <DemoRoute roles={['admin', 'recepcion']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <TurnosPage />
                           </React.Suspense>
                         </DemoRoute>
                       } />
 
-                      <Route path="/pantalla-espera" element={
-                        <DemoRoute roles={['paciente']}>
-                          <React.Suspense fallback={<LoadingSpinner />}>
-                            <PantallaEsperaPage />
-                          </React.Suspense>
-                        </DemoRoute>
-                      } />
-
                       <Route path="/alertas" element={
-                        <DemoRoute roles={['admin', 'farmacia']}>
+                        <DemoRoute roles={['admin', 'medico', 'farmacia']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <AlertasPage />
                           </React.Suspense>
@@ -165,7 +162,7 @@ function App() {
                       } />
 
                       <Route path="/predicciones" element={
-                        <DemoRoute roles={['admin']}>
+                        <DemoRoute roles={['admin', 'recepcion']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <PrediccionesPage />
                           </React.Suspense>
@@ -173,7 +170,7 @@ function App() {
                       } />
 
                       <Route path="/optimizaciones" element={
-                        <DemoRoute roles={['admin']}>
+                        <DemoRoute roles={['admin', 'recepcion']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <OptimizacionesPage />
                           </React.Suspense>
@@ -189,15 +186,15 @@ function App() {
                       } />
 
                       <Route path="/analisis" element={
-                        <DemoRoute roles={['admin']}>
+                        <DemoRoute roles={['admin', 'medico']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <AnalisisPage />
                           </React.Suspense>
                         </DemoRoute>
                       } />
 
-                      <Route path="/reconocimiento-vóz" element={
-                        <DemoRoute roles={['admin']}>
+                      <Route path="/reconocimiento-voz" element={
+                        <DemoRoute roles={['admin', 'medico']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <ReconocimientoVozPage />
                           </React.Suspense>
@@ -213,7 +210,7 @@ function App() {
                       } />
 
                       <Route path="/ia-vision" element={
-                        <DemoRoute roles={['admin']}>
+                        <DemoRoute roles={['admin', 'medico', 'recepcion']}>
                           <React.Suspense fallback={<LoadingSpinner />}>
                             <IAVisionPage />
                           </React.Suspense>
@@ -228,35 +225,55 @@ function App() {
                         </DemoRoute>
                       } />
 
+                      <Route path="/landing" element={
+                        <React.Suspense fallback={<LoadingSpinner />}>
+                          <LandingPage />
+                        </React.Suspense>
+                      } />
+
                       <Route path="/demo" element={
                         <React.Suspense fallback={<LoadingSpinner />}>
                           <DemoInteractive />
                         </React.Suspense>
                       } />
+                    </Route>
 
-                      <Route path="/portal-paciente" element={
-                        <DemoRoute roles={['paciente']}>
-                          <React.Suspense fallback={<LoadingSpinner />}>
-                            <PortalPaciente />
-                          </React.Suspense>
-                        </DemoRoute>
-                      } />
+                    <Route path="/pantalla-espera" element={
+                      <React.Suspense fallback={<LoadingSpinner />}>
+                        <PantallaEsperaPage />
+                      </React.Suspense>
+                    } />
 
-                      <Route path="/landing" element={
+                    <Route path="/mi-portal" element={
+                      <DemoRoute roles={['paciente']}>
+                        <Layout />
+                      </DemoRoute>
+                    }>
+                      <Route path="citas" element={
                         <React.Suspense fallback={<LoadingSpinner />}>
-                          <LandingPage />
+                          <PortalPaciente activeTab="citas" />
+                        </React.Suspense>
+                      } />
+                      <Route path="historial" element={
+                        <React.Suspense fallback={<LoadingSpinner />}>
+                          <PortalPaciente activeTab="historial" />
+                        </React.Suspense>
+                      } />
+                      <Route path="bonos" element={
+                        <React.Suspense fallback={<LoadingSpinner />}>
+                          <PortalPaciente activeTab="bonos" />
                         </React.Suspense>
                       } />
                     </Route>
                   </Routes>
                 </Router>
               </QueryProvider>
-            </ToastProvider>
-          </NotificationProvider>
-        </AccessibilityProvider>
-      </ErrorBoundary>
-    </ThemeProvider>
+            </ThemeProvider>
+          </ToastProvider>
+        </NotificationProvider>
+      </AccessibilityProvider>
+    </ErrorBoundary>
   );
 }
 
-export default App;
+export default React.memo(App);
